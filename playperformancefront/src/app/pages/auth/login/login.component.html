@@ -2,15 +2,41 @@
   <mat-card>
 
     <mat-card-content>
-      <img src="../../../../assets/PlayPerformanceLogo.jpeg" width="90" height="100">
-      <h2>Faça seu Login</h2>
-      <mat-form-field class="full-width-input" >
-        <input matInput type="text" placeholder="Digite seu e-mail" required/>
-      </mat-form-field>
-      <mat-form-field class="full-width-input separator">
-        <input matInput type="password" placeholder="Digite sua senha"/>
-      </mat-form-field>
-      <button type="submit" mat-raised-button color="primary">Entrar</button>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <img src="../../../../assets/PlayPerformanceLogo.jpeg" width="90" height="100">
+        <h2>Faça seu Login</h2>
+        <mat-form-field class="full-width-input" >
+          <input
+            matInput
+            formControlName="email"
+            type="text"
+            placeholder="Digite seu e-mail"
+            required/>
+            <mat-error *ngIf="isValidField('email')">
+              {{getErrorMessage('email')}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width-input separator">
+          <input
+            matInput
+            formControlName="senha"
+            [type] = "hide ? 'password':'text'"
+            placeholder="Digite sua senha"/>
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+              <mat-icon>{{ hide ? "visibility_off":"visibility" }}</mat-icon>
+            </button>
+            <mat-error *ngIf="isValidField('senha')">
+              {{getErrorMessage('senha')}}
+            </mat-error>
+        </mat-form-field>
+        <button
+          [disabled] = "loginForm.invalid"
+          type="submit"
+          mat-raised-button color="primary">
+          <mat-icon>lock_open</mat-icon>
+          Entrar
+        </button>
+      </form>
     </mat-card-content>
   </mat-card>
 </div>
