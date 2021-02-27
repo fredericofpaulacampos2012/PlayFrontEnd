@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <ng-container *ngIf = "!isAdmin; else viewAdmin">
+  <ng-container *ngIf = "!isLogged; else viewAdmin">
     <img src="../../../../assets/logos play.png" height="55" width="45">
     <span>PlayPerformance</span>
     <span class="spacer"></span>
@@ -19,4 +19,5 @@
   <img src="../../../../assets/logos play.png" height="55" width="45">
   <span>PlayPerformance</span>
   <span class="spacer"></span>
+  <a mat-button (click)="onLogout()">Logout</a>
 </ng-template>

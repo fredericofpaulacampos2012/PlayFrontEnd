@@ -1,3 +1,4 @@
+import { UtilService } from './../../services/utils.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../../pages/auth/auth.service';
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLogged=false;
   private subscription:Subscription = new Subscription();
   @Output() toggleSidenav = new EventEmitter<any>();
-  constructor(private authSvc:AuthService) { }
+  constructor(private authSvc:AuthService,private utilSvc:UtilService) { }
 
   ngOnInit(): void {
     this.subscription.add(
@@ -28,6 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   onLogout():void{
     this.authSvc.logout();
+    this.utilSvc.openSidebar(false);
   }
 
 }
