@@ -14,9 +14,14 @@ const helper = new JwtHelperService();
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+  private userToken = new BehaviorSubject<string>('');
 
   constructor(private http:HttpClient, private router:Router) {
     this.checkToken();
+  }
+
+  get userTokenValue():string{
+    return this.userToken.getValue();
   }
 
   get isLogged():Observable<boolean>{
@@ -30,6 +35,7 @@ export class AuthService {
         map((res:LoginResponse)=>{
           this.saveToken(res.token);
           this.loggedIn.next(true);
+          this.userToken.next(res.token);
           return res;
         }),
         catchError((error)=>this.handleError(error))
@@ -38,15 +44,25 @@ export class AuthService {
   logout():void{
     localStorage.removeItem('token');
     this.loggedIn.next(false);
+    this.userToken.next('');
     this.router.navigate(['/login']);
   }
   private checkToken():void{
     const userToken = localStorage.getItem('token');
+    let token = "";
     let isExpired = true;
     if(userToken != null){
       isExpired = helper.isTokenExpired(userToken);
+      token=userToken;
     }
-    isExpired ? this.logout():this.loggedIn.next(true);
+    if(isExpired){
+      this.logout();
+    }
+    else{
+      this.loggedIn.next(true);
+      this.userToken.next(token);
+    }
+
   }
   private saveToken(token:string):void{
     localStorage.setItem('token',token);

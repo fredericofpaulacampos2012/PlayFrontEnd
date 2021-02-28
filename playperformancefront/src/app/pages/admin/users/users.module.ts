@@ -1,3 +1,4 @@
+import { MaterialModule } from 'src/app/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,8 @@ import { UsersComponent } from './users.component';
   declarations: [UsersComponent],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    MaterialModule
   ]
 })
 export class UsersModule { }
