@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 const myModules = [
@@ -22,6 +23,7 @@ const myModules = [
   MatCardModule,
   MatTableModule,
   MatSortModule,
+  MatPaginatorModule,
 ];
 
 @NgModule({

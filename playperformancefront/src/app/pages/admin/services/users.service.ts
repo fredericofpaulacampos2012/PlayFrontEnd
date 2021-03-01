@@ -14,7 +14,7 @@ export class UsersService {
 
   getAllUsers():Observable<User[]>{
     return this.http
-      .get<User[]>(`${environment.API_URL}/customers`)
+      .get<User[]>(`${environment.API_URL}/collaborators`)
       .pipe(catchError(this.handleError));
   }
   getUserById(userid:string):Observable<User>{
