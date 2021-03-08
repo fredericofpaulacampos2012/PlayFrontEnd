@@ -2,7 +2,12 @@
   <mat-label>Filtro</mat-label>
   <input matInput placeholder="Digite sua busca aqui..." (keyup)="applyfilter($event)">
 </mat-form-field>
-
+<div class ="table-button-row">
+  <button mat-flat-button color="primary" class = "btn-new" (click)="onOpenModal('Adicionar Novo Cliente')">
+    <mat-icon>people</mat-icon>
+    <span>Novo Cliente</span>
+  </button>
+</div>
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
   <!-- Nome Column -->
@@ -23,12 +28,6 @@
     <td mat-cell *matCellDef="let element"> {{element.email}} </td>
   </ng-container>
 
-  <!-- cpf Column -->
-  <ng-container matColumnDef="cpf">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> CPF </th>
-    <td mat-cell *matCellDef="let element"> {{element.cpf}} </td>
-  </ng-container>
-
   <!-- Telefone Column -->
   <ng-container matColumnDef="telefone">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
@@ -46,6 +45,30 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
     <td mat-cell *matCellDef="let element"> {{element.uf}} </td>
   </ng-container>
+
+    <!-- uf Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ação </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onOpenModal('Dados Cliente',element)">
+            <mat-icon>search</mat-icon>
+            <span>Visualizar</span>
+          </button>
+          <button mat-menu-item (click)="onOpenModal('Editar dados Cliente',element)">
+            <mat-icon>edit</mat-icon>
+            <span>Editar</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Deletar</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

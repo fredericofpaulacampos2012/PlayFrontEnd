@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>{{data?.title}}</h2>
+<mat-dialog-content>
+  <div class="modal-form">
+    <form>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Nome Cliente" required>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="E-mail" required>
+      </mat-form-field>
+      <mat-form-field class="p50-width-input">
+        <input matInput placeholder="CPF" [textMask]="{mask:maskCPF}" required>
+      </mat-form-field>
+      <mat-form-field class="half-width-input">
+        <input matInput placeholder="Telefone" [textMask]="{mask:maskTel}"required>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Rua" required>
+      </mat-form-field>
+      <mat-form-field class="p30-width-input">
+        <input matInput placeholder="Bairro" required>
+      </mat-form-field>
+      <mat-form-field class="p70-width-input">
+        <input matInput placeholder="Cidade" required>
+      </mat-form-field>
+      <mat-form-field class="p50-width-input">
+        <mat-label>Selecione o Estado</mat-label>
+        <mat-select required>
+          <mat-option value="AC">Acre - AC</mat-option>
+          <mat-option value="AL">Alagoas - AL</mat-option>
+          <mat-option value="AM">Amazonas - AM</mat-option>
+          <mat-option value="AP">Amapá - AP</mat-option>
+          <mat-option value="BA">Bahia - BA</mat-option>
+          <mat-option value="CE">Ceará - CE</mat-option>
+          <mat-option value="DF">Distrito Federal - DF</mat-option>
+          <mat-option value="ES">Espírito Santo - ES</mat-option>
+          <mat-option value="GO">Goiás - GO</mat-option>
+          <mat-option value="MA">Maranhão - MA</mat-option>
+          <mat-option value="MG">Minas Gerais - MG</mat-option>
+          <mat-option value="MS">Mato Grosso do Sul - MS</mat-option>
+          <mat-option value="MT">Mato Grosso - MT</mat-option>
+          <mat-option value="PA">Pará - PA</mat-option>
+          <mat-option value="PB">Paraíba - PB</mat-option>
+          <mat-option value="PE">Pernambuco - PE</mat-option>
+          <mat-option value="PI">Piauí - PI</mat-option>
+          <mat-option value="PR">Paraná - PR</mat-option>
+          <mat-option value="RJ">Rio de Janeiro - RJ</mat-option>
+          <mat-option value="RN">Rio Grande do Norte - RN</mat-option>
+          <mat-option value="RO">Rondônia - RO</mat-option>
+          <mat-option value="RR">Roraima - RR</mat-option>
+          <mat-option value="RS">Rio Grande do Sul - RS</mat-option>
+          <mat-option value="SC">Santa Catarina - SC</mat-option>
+          <mat-option value="SE">Sergipe - SE</mat-option>
+          <mat-option value="SP">São Paulo - SP</mat-option>
+          <mat-option value="TO">Tocantins - TO</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="half-width-input">
+        <input matInput placeholder="CEP" [textMask]="{mask:maskCEP}"required>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancelar</button>
+  <button
+  mat-raised-button
+  [mat-dialog-close]="true"
+  color="primary"
+  (click)="onSave()"
+  ckdFocusInitial>
+  Salvar
+  <mat-icon>save</mat-icon>
+</button>
+</mat-dialog-actions>

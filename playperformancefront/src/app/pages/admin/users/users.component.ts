@@ -1,9 +1,11 @@
+import { ModalComponent } from './../components/modal/modal.component';
 import { User } from './../../../shared/models/user.interface';
 import { UsersService } from './../services/users.service';
 import {AfterViewInit, Component, ViewChild,OnInit} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-users',
@@ -15,17 +17,17 @@ export class UsersComponent implements OnInit, AfterViewInit {
     'nome',
     'role',
     'email',
-    'cpf',
     'telefone',
     'cidade',
-    'uf'
+    'uf',
+    'action'
   ];
   dataSource = new MatTableDataSource();
   user:User[]=[];
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator! : MatPaginator;
 
-  constructor(private userSvc:UsersService){
+  constructor(private userSvc:UsersService, private dialog: MatDialog){
 
   }
   ngOnInit():void{
@@ -42,5 +44,16 @@ export class UsersComponent implements OnInit, AfterViewInit {
   applyfilter(event: Event ){
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
+  }
+  onOpenModal(title:string ,user={}):void{
+    const dialogRef = this.dialog.open(ModalComponent,{
+      height:'520px',
+      width:'650px',
+      hasBackdrop:false,
+      data:{
+        title:title,
+        user:user
+      }
+    });
   }
 }
