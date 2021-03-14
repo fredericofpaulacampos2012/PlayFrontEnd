@@ -3,7 +3,7 @@
   <input matInput placeholder="Digite sua busca aqui..." (keyup)="applyfilter($event)">
 </mat-form-field>
 <div class ="table-button-row">
-  <button mat-flat-button color="primary" class = "btn-new" (click)="onOpenModal('Adicionar Novo Cliente')">
+  <button mat-flat-button color="primary" class = "btn-new" (click)="onOpenModal('Cadastrar Novo Cliente','new')">
     <mat-icon>people</mat-icon>
     <span>Novo Cliente</span>
   </button>
@@ -54,15 +54,15 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onOpenModal('Dados Cliente',element)">
+          <button mat-menu-item (click)="onOpenModal('Dados Cliente','view',element)">
             <mat-icon>search</mat-icon>
             <span>Visualizar</span>
           </button>
-          <button mat-menu-item (click)="onOpenModal('Editar dados Cliente',element)">
+          <button mat-menu-item (click)="onOpenModal('Editar dados Cliente','edit',element)">
             <mat-icon>edit</mat-icon>
             <span>Editar</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="onDelete(element._id)">
             <mat-icon>delete</mat-icon>
             <span>Deletar</span>
           </button>

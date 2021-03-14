@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { ModalComponent } from './../components/modal/modal.component';
 import { User } from './../../../shared/models/user.interface';
 import { UsersService } from './../services/users.service';
@@ -45,15 +46,23 @@ export class UsersComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
-  onOpenModal(title:string ,user={}):void{
+  onOpenModal(title:string , modo:string ,user={}):void{
     const dialogRef = this.dialog.open(ModalComponent,{
       height:'520px',
       width:'650px',
       hasBackdrop:false,
       data:{
         title:title,
+        mode:modo,
         user:user
       }
     });
+  }
+  onDelete(userId:string):void{
+      if(window.confirm('Tem certeza de que deseja Apagar este Cliente?')){
+        this.userSvc.deleteUser(userId).subscribe((res)=>{
+          window.alert(res);
+        });
+      }
   }
 }

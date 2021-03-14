@@ -1,31 +1,52 @@
 <h2 mat-dialog-title>{{data?.title}}</h2>
 <mat-dialog-content>
   <div class="modal-form">
-    <form>
+    <form [formGroup]="bForm.BaseForm">
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Nome Cliente" required>
+      <input matInput placeholder="Nome Cliente" formControlName="nome" required>
+        <mat-error *ngIf="checkField('nome')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="E-mail" required>
+        <input matInput placeholder="E-mail" formControlName="email" required>
+        <mat-error *ngIf="checkField('email')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="p50-width-input">
-        <input matInput placeholder="CPF" [textMask]="{mask:maskCPF}" required>
+        <input matInput placeholder="CPF" [textMask]="{mask:maskCPF}" formControlName="cpf" required>
+        <mat-error *ngIf="checkField('cpf')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="half-width-input">
-        <input matInput placeholder="Telefone" [textMask]="{mask:maskTel}"required>
+        <input matInput placeholder="Telefone" [textMask]="{mask:maskTel}" formControlName="telefone" required>
+        <mat-error *ngIf="checkField('telefone')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width-input">
-        <input matInput placeholder="Rua" required>
+        <input matInput placeholder="Rua" formControlName="rua" required >
+        <mat-error *ngIf="checkField('rua')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="p30-width-input">
-        <input matInput placeholder="Bairro" required>
+        <input matInput placeholder="Bairro" formControlName="bairro" required >
+        <mat-error *ngIf="checkField('bairro')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="p70-width-input">
-        <input matInput placeholder="Cidade" required>
+        <input matInput placeholder="Cidade" formControlName="cidade" required >
+        <mat-error *ngIf="checkField('cidade')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="p50-width-input">
         <mat-label>Selecione o Estado</mat-label>
-        <mat-select required>
+        <mat-select formControlName="uf" required >
           <mat-option value="AC">Acre - AC</mat-option>
           <mat-option value="AL">Alagoas - AL</mat-option>
           <mat-option value="AM">Amazonas - AM</mat-option>
@@ -54,9 +75,15 @@
           <mat-option value="SP">São Paulo - SP</mat-option>
           <mat-option value="TO">Tocantins - TO</mat-option>
         </mat-select>
+        <mat-error *ngIf="checkField('uf')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="half-width-input">
-        <input matInput placeholder="CEP" [textMask]="{mask:maskCEP}"required>
+        <input matInput placeholder="CEP" [textMask]="{mask:maskCEP}" formControlName="cep" required >
+        <mat-error *ngIf="checkField('cep')">
+          {{bForm.errorMessage}}
+        </mat-error>
       </mat-form-field>
     </form>
   </div>
@@ -64,10 +91,12 @@
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close>Cancelar</button>
   <button
+  *ngIf="!isView"
   mat-raised-button
   [mat-dialog-close]="true"
   color="primary"
   (click)="onSave()"
+  [disabled]="bForm.BaseForm.invalid"
   ckdFocusInitial>
   Salvar
   <mat-icon>save</mat-icon>

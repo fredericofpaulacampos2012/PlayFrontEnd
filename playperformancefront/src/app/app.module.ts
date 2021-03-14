@@ -9,6 +9,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { MaterialModule } from './material.module';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     MaterialModule,
     SidebarModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass:AdminInterceptor,multi:true},
