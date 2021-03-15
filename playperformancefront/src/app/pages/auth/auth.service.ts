@@ -15,6 +15,7 @@ const helper = new JwtHelperService();
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userToken = new BehaviorSubject<string>('');
+  public userId = '';
 
   constructor(private http:HttpClient, private router:Router) {
     this.checkToken();
@@ -36,6 +37,7 @@ export class AuthService {
           this.saveToken(res.token);
           this.loggedIn.next(true);
           this.userToken.next(res.token);
+          this.userId=res.data.id;
           return res;
         }),
         catchError((error)=>this.handleError(error))

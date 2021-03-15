@@ -8,13 +8,12 @@ import { User } from '../../../../shared/models/user.interface';
   NEW = 'new',
   VIEW = 'view'
 }
-
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  selector: 'app-modal-colaborator',
+  templateUrl: './modal-colaborator.component.html',
+  styleUrls: ['./modal-colaborator.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class ModalColaboratorComponent implements OnInit {
   public maskTel = ['(', /[1-9]/, /\d/,')', ' ', /\d/,/\d/,/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public maskCPF = [ /\d/,/\d/,/\d/, '.',/\d/, /\d/,/\d/,'.',/\d/, /\d/,/\d/, '-', /\d/, /\d/];
   public maskCEP = [ /\d/,/\d/,'.',/\d/, /\d/,/\d/,'-', /\d/, /\d/, /\d/];
@@ -26,7 +25,7 @@ export class ModalComponent implements OnInit {
   public isView = false;
   user:User={
     nome:'',
-    role: 'Cliente',
+    role: 'Colaborador',
     email:'',
     senha:'playPerformance2021',
     cpf:'',
@@ -72,6 +71,7 @@ export class ModalComponent implements OnInit {
     }else if(this.ActionTodo==Action.EDIT){
       this.user.nome = this.bForm.BaseForm.get('nome')?.value;
       this.user.email = this.bForm.BaseForm.get('email')?.value;
+      this.user.role = this.bForm.BaseForm.get('role')?.value;
       this.user.cpf = this.bForm.BaseForm.get('cpf')?.value;
       this.user.telefone = this.bForm.BaseForm.get('telefone')?.value;
       this.user.rua = this.bForm.BaseForm.get('rua')?.value;
@@ -81,8 +81,6 @@ export class ModalComponent implements OnInit {
       this.user.cep = this.bForm.BaseForm.get('cep')?.value;
       this.user.ativo = true;
       this.user.senha = this.data.senha;
-      this.user.role = 'Cliente';
-
       const userId = this.data?.user?._id;
       this.userSvc.updateUser(userId,this.user).subscribe(res=>{
         console.log("Update customer =>",res);
@@ -92,17 +90,16 @@ export class ModalComponent implements OnInit {
       //View
     }
   }
-
   checkField(field:string):boolean{
     return this.bForm.isValidField(field);
   }
-
   private PatchFormData():void{
     if(this.ActionTodo!=Action.NEW)
     {
         this.bForm.BaseForm.patchValue({
         nome:this.data?.user?.nome,
         email:this.data?.user?.email,
+        role:this.data?.user?.role,
         cpf:this.data?.user?.cpf,
         telefone:this.data?.user?.telefone,
         rua:this.data?.user?.rua,
@@ -126,4 +123,5 @@ export class ModalComponent implements OnInit {
       });
     }
   }
+
 }

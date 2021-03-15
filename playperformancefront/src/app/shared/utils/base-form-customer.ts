@@ -10,6 +10,7 @@ export class BaseForm{
   BaseForm = this.fb.group({
     nome: ['',[Validators.required]],
     email: ['',[Validators.required,Validators.pattern(this.isValidEmail)]],
+    role: ['Cliente',[Validators.required]],
     cpf: ['',[Validators.required]],
     telefone: ['',[Validators.required]],
     rua: ['',[Validators.required]],

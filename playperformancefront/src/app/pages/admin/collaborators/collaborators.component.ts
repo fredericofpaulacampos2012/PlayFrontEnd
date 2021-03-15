@@ -1,7 +1,5 @@
 import { MatSelectModule } from '@angular/material/select';
-import { ModalComponent } from './../components/modal/modal.component';
 import { User } from './../../../shared/models/user.interface';
-import { UsersService } from './../services/users.service';
 import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -10,15 +8,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ThrowStmt } from '@angular/compiler';
+import { CollaboratorsService } from '../services/collaborators.service';
+import { ModalColaboratorComponent } from '../components/modal-colaborator/modal-colaborator.component';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-collaborators',
+  templateUrl: './collaborators.component.html',
+  styleUrls: ['./collaborators.component.scss']
 })
-export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CollaboratorsComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = [
     'nome',
+    'role',
     'email',
     'telefone',
     'cidade',
@@ -31,10 +32,10 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator! : MatPaginator;
   private destroy$= new Subject<any>();
 
-  constructor(private userSvc:UsersService, private dialog: MatDialog){
-
+  constructor(private userSvc:CollaboratorsService, private dialog: MatDialog){
   }
-  ngOnInit():void{
+
+  ngOnInit(): void {
     this.userSvc.getAllUsers().subscribe(users=>{
       this.dataSource.data = users;
       this.user = users;
@@ -53,7 +54,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
   onOpenModal(title:string , modo:string ,user={}):void{
-    const dialogRef = this.dialog.open(ModalComponent,{
+    const dialogRef = this.dialog.open(ModalColaboratorComponent,{
       height:'520px',
       width:'650px',
       hasBackdrop:false,
@@ -72,7 +73,7 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   onDelete(userId:string):void{
-      if(window.confirm('Tem certeza de que deseja Apagar este Cliente?')){
+      if(window.confirm('Tem certeza de que deseja Apagar este Colaborador?')){
         this.userSvc.deleteUser(userId)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res)=>{
@@ -83,4 +84,5 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       }
   }
+
 }

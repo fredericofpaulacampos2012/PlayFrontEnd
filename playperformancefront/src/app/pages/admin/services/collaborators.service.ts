@@ -8,38 +8,38 @@ import { User } from 'src/app/shared/models/user.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class CollaboratorsService {
 
   constructor(private http:HttpClient) { }
 
   getAllUsers():Observable<User[]>{
     return this.http
-      .get<User[]>(`${environment.API_URL}/customers`)
+      .get<User[]>(`${environment.API_URL}/collaborators`)
       .pipe(catchError(this.handleError));
   }
   getUserById(userid:string):Observable<User>{
     return this.http
-      .get<User>(`${environment.API_URL}/customers/admin/${userid}`)
+      .get<User>(`${environment.API_URL}/collaborators/admin/${userid}`)
       .pipe(catchError(this.handleError));
   }
   newUser(user:User):Observable<User>{
     return this.http
-      .post<User>(`${environment.API_URL}/customers`,user)
+      .post<User>(`${environment.API_URL}/collaborators`,user)
       .pipe(catchError(this.handleError));
   }
   updateUser(userid:string,user:User):Observable<User>{
     return this.http
-    .put<User>(`${environment.API_URL}/customers/${userid}`,user)
+    .put<User>(`${environment.API_URL}/collaborators/${userid}`,user)
     .pipe(catchError(this.handleError));
   }
   changePassword(userid:string,user:User):Observable<User>{
     return this.http
-    .put<User>(`${environment.API_URL}/customers/changePassword/${userid}`,user)
+    .put<User>(`${environment.API_URL}/collaborators/changePassword/${userid}`,user)
     .pipe(catchError(this.handleError));
   }
   deleteUser(userid:string):Observable<{}>{
     return this.http
-    .delete<User>(`${environment.API_URL}/customers/${userid}`)
+    .delete<User>(`${environment.API_URL}/collaborators/${userid}`)
     .pipe(catchError(this.handleError));
   }
   handleError(error: { message: any; }):Observable<never>{
